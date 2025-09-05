@@ -184,10 +184,12 @@ def is_bst(t):
         return bst_max(right) if t.label < right.label else t.label
 
     def is_bst_helper(t):
-        if t.is_leaf() or len(t.branches) == 1:
+        if t.is_leaf():
             return True
         if len(t.branches) > 2:
             return False
+        if len(t.branches) == 1:
+            return is_bst_helper(t.branches[0])
         left, right = t.branches[0], t.branches[1]
         return is_bst_helper(left) and is_bst_helper(right) and bst_max(left) <= t.label < bst_min(right)
     
